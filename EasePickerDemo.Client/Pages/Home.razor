@@ -1,0 +1,60 @@
+﻿@page "/"
+@using EasePickerDemo.Client.Components
+
+<PageTitle>EasyPicker Demo</PageTitle>
+
+<h1>EasyPicker Demo</h1>
+
+<div class="row">
+    <div class="sample-box">
+        <label>Simple Date Picker</label>
+        <EasyPicker DateSelected="OnDateSelected" />
+    </div>
+            
+    <div class="sample-box">
+        <label>Date Range Selection Picker</label>
+        <EasyPicker CollectDateRange="true"
+                    DateRangeSelected="OnDateRangeSelected"
+                    RangeConfig="_rangeConfig"
+                    Months="2"
+                    Columns="2"/>
+
+    </div>
+    <div class="sample-box">
+        <label>Header/Extra Options</label>
+        <EasyPicker AmpConfig="_ampConfig" />
+    </div>
+</div>
+
+
+
+@code {
+    private void OnDateSelected(DateTime date)
+    {
+        // do something
+    }
+
+    private void OnDateRangeSelected(DateRange dateRange)
+    {
+        // do something
+    }
+
+    private readonly RangePluginOptions _rangeConfig = new()
+    {
+        StartDate = DateTime.Today
+    };
+
+    private readonly AmpPluginOptions _ampConfig = new()
+    {
+        Dropdown = new Dropdown()
+        {
+            MinYear = 2000,
+            MaxYear = 2050,
+            Months = true,
+            Years = true,
+            YearsAscending = true
+        },
+        ResetButton = true
+    };
+
+}
