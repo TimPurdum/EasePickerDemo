@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
     "module": "ES2022",
-    "lib": ["ES2015"],
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "outDir": "wwwroot/js"
   },
   "include": ["Scripts/**/*"]

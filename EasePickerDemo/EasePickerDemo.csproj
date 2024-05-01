@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Scripts\picker.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\EasePickerDemo.Client\EasePickerDemo.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.1" />
   </ItemGroup>

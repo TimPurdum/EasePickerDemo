@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "build": "esbuild ./Scripts/picker.ts --format=esm --bundle --sourcemap --outdir=wwwroot/js"
+    "build": "esbuild ./Scripts/picker.ts --format=esm --bundle --sourcemap --outdir=wwwroot/js",
+    "watchBuild": "esbuild ./Scripts/picker.ts --format=esm --bundle --sourcemap --outdir=wwwroot/js --watch"
   },
   "dependencies": {
     "@easepick/bundle": "1.2.1",
