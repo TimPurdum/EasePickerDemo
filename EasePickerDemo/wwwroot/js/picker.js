@@ -11,25 +11,25 @@ var t = class _t extends Date {
       return new Date(Number(e2));
     if ("string" == typeof e2) {
       const s2 = [];
-      let o = null;
-      for (; null != (o = _t.regex.exec(i2)); )
-        "\\" !== o[1] && s2.push(o);
+      let o2 = null;
+      for (; null != (o2 = _t.regex.exec(i2)); )
+        "\\" !== o2[1] && s2.push(o2);
       if (s2.length) {
         const i3 = { year: null, month: null, shortMonth: null, longMonth: null, day: null, hour: 0, minute: 0, second: 0, ampm: null, value: "" };
         s2[0].index > 0 && (i3.value += ".*?");
-        for (const [e3, o3] of Object.entries(s2)) {
-          const s3 = Number(e3), { group: a, pattern: r } = _t.formatPatterns(o3[0], n2);
+        for (const [e3, o4] of Object.entries(s2)) {
+          const s3 = Number(e3), { group: a, pattern: r } = _t.formatPatterns(o4[0], n2);
           i3[a] = s3 + 1, i3.value += r, i3.value += ".*?";
         }
-        const o2 = new RegExp(`^${i3.value}$`);
-        if (o2.test(e2)) {
-          const s3 = o2.exec(e2), a = Number(s3[i3.year]);
+        const o3 = new RegExp(`^${i3.value}$`);
+        if (o3.test(e2)) {
+          const s3 = o3.exec(e2), a = Number(s3[i3.year]);
           let r = null;
           i3.month ? r = Number(s3[i3.month]) - 1 : i3.shortMonth ? r = _t.shortMonths(n2).indexOf(s3[i3.shortMonth]) : i3.longMonth && (r = _t.longMonths(n2).indexOf(s3[i3.longMonth]));
-          const c = Number(s3[i3.day]) || 1, l = Number(s3[i3.hour]);
+          const c2 = Number(s3[i3.day]) || 1, l = Number(s3[i3.hour]);
           let h = Number.isNaN(l) ? 0 : l;
-          const d = Number(s3[i3.minute]), p = Number.isNaN(d) ? 0 : d, u = Number(s3[i3.second]), g = Number.isNaN(u) ? 0 : u, m = s3[i3.ampm];
-          return m && "PM" === m && (h += 12, 24 === h && (h = 0)), new Date(a, r, c, h, p, g, 0);
+          const d2 = Number(s3[i3.minute]), p = Number.isNaN(d2) ? 0 : d2, u = Number(s3[i3.second]), g = Number.isNaN(u) ? 0 : u, m = s3[i3.ampm];
+          return m && "PM" === m && (h += 12, 24 === h && (h = 0)), new Date(a, r, c2, h, p, g, 0);
         }
       }
     }
@@ -211,14 +211,14 @@ var t = class _t extends Date {
   format(e2, i2 = "en-US") {
     let n2 = "";
     const s2 = [];
-    let o = null;
-    for (; null != (o = _t.regex.exec(e2)); )
-      "\\" !== o[1] && s2.push(o);
+    let o2 = null;
+    for (; null != (o2 = _t.regex.exec(e2)); )
+      "\\" !== o2[1] && s2.push(o2);
     if (s2.length) {
       s2[0].index > 0 && (n2 += e2.substring(0, s2[0].index));
-      for (const [t2, o2] of Object.entries(s2)) {
+      for (const [t2, o3] of Object.entries(s2)) {
         const a = Number(t2);
-        n2 += this.formatTokens(o2[0], i2), s2[a + 1] && (n2 += e2.substring(o2.index + o2[0].length, s2[a + 1].index)), a === s2.length - 1 && (n2 += e2.substring(o2.index + o2[0].length));
+        n2 += this.formatTokens(o3[0], i2), s2[a + 1] && (n2 += e2.substring(o3.index + o3[0].length, s2[a + 1].index)), a === s2.length - 1 && (n2 += e2.substring(o3.index + o3[0].length));
       }
     }
     return n2.replace(/\\/g, "");
@@ -294,8 +294,8 @@ var e = class {
       n2.className = "calendar", i2.appendChild(n2);
       const s2 = this.getCalendarHeaderView(t2.clone());
       n2.appendChild(s2), this.picker.trigger("view", { date: t2.clone(), view: "CalendarHeader", index: e3, target: s2 });
-      const o = this.getCalendarDayNamesView();
-      n2.appendChild(o), this.picker.trigger("view", { date: t2.clone(), view: "CalendarDayNames", index: e3, target: o });
+      const o2 = this.getCalendarDayNamesView();
+      n2.appendChild(o2), this.picker.trigger("view", { date: t2.clone(), view: "CalendarDayNames", index: e3, target: o2 });
       const a = this.getCalendarDaysView(t2.clone());
       n2.appendChild(a), this.picker.trigger("view", { date: t2.clone(), view: "CalendarDays", index: e3, target: a });
       const r = this.getCalendarFooterView(this.picker.options.lang, t2.clone());
@@ -545,15 +545,327 @@ var n = class {
     this.ui.container.classList.add("calc");
     const n2 = this.ui.container.getBoundingClientRect();
     this.ui.container.classList.remove("calc");
-    let s2 = e2.bottom - i2.bottom, o = e2.left - i2.left;
-    return "undefined" != typeof window && (window.innerHeight < s2 + n2.height && s2 - n2.height >= 0 && (s2 = e2.top - i2.top - n2.height), window.innerWidth < o + n2.width && e2.right - n2.width >= 0 && (o = e2.right - i2.right - n2.width)), { left: o, top: s2 };
+    let s2 = e2.bottom - i2.bottom, o2 = e2.left - i2.left;
+    return "undefined" != typeof window && (window.innerHeight < s2 + n2.height && s2 - n2.height >= 0 && (s2 = e2.top - i2.top - n2.height), window.innerWidth < o2 + n2.width && e2.right - n2.width >= 0 && (o2 = e2.right - i2.right - n2.width)), { left: o2, top: s2 };
   }
 };
 var s = Object.freeze({ __proto__: null, Core: n, create: n });
+var o = class {
+  picker;
+  options;
+  priority = 0;
+  dependencies = [];
+  attach(t2) {
+    const e2 = this.getName(), i2 = { ...this.options };
+    this.options = { ...this.options, ...t2.options[e2] || {} };
+    for (const n3 of Object.keys(i2))
+      if (null !== i2[n3] && "object" == typeof i2[n3] && Object.keys(i2[n3]).length && e2 in t2.options && n3 in t2.options[e2]) {
+        const s2 = { ...t2.options[e2][n3] };
+        null !== s2 && "object" == typeof s2 && Object.keys(s2).length && Object.keys(s2).every((t3) => Object.keys(i2[n3]).includes(t3)) && (this.options[n3] = { ...i2[n3], ...s2 });
+      }
+    if (this.picker = t2, this.dependenciesNotFound()) {
+      const t3 = this.dependencies.filter((t4) => !this.pluginsAsStringArray().includes(t4));
+      return void console.warn(`${this.getName()}: required dependencies (${t3.join(", ")}).`);
+    }
+    const n2 = this.camelCaseToKebab(this.getName());
+    this.picker.ui.container.classList.add(n2), this.onAttach();
+  }
+  detach() {
+    const t2 = this.camelCaseToKebab(this.getName());
+    this.picker.ui.container.classList.remove(t2), "function" == typeof this.onDetach && this.onDetach();
+  }
+  dependenciesNotFound() {
+    return this.dependencies.length && !this.dependencies.every((t2) => this.pluginsAsStringArray().includes(t2));
+  }
+  pluginsAsStringArray() {
+    return this.picker.options.plugins.map((t2) => "function" == typeof t2 ? new t2().getName() : t2);
+  }
+  camelCaseToKebab(t2) {
+    return t2.replace(/([a-zA-Z])(?=[A-Z])/g, "$1-").toLowerCase();
+  }
+};
+var c = class extends o {
+  tooltipElement;
+  triggerElement;
+  binds = { setStartDate: this.setStartDate.bind(this), setEndDate: this.setEndDate.bind(this), setDateRange: this.setDateRange.bind(this), getStartDate: this.getStartDate.bind(this), getEndDate: this.getEndDate.bind(this), onView: this.onView.bind(this), onShow: this.onShow.bind(this), onMouseEnter: this.onMouseEnter.bind(this), onMouseLeave: this.onMouseLeave.bind(this), onClickCalendarDay: this.onClickCalendarDay.bind(this), onClickApplyButton: this.onClickApplyButton.bind(this), parseValues: this.parseValues.bind(this), updateValues: this.updateValues.bind(this), clear: this.clear.bind(this) };
+  options = { elementEnd: null, startDate: null, endDate: null, repick: false, strict: true, delimiter: " - ", tooltip: true, tooltipNumber: (t2) => t2, locale: { zero: "", one: "day", two: "", few: "", many: "", other: "days" }, documentClick: this.hidePicker.bind(this) };
+  getName() {
+    return "RangePlugin";
+  }
+  onAttach() {
+    this.binds._setStartDate = this.picker.setStartDate, this.binds._setEndDate = this.picker.setEndDate, this.binds._setDateRange = this.picker.setDateRange, this.binds._getStartDate = this.picker.getStartDate, this.binds._getEndDate = this.picker.getEndDate, this.binds._parseValues = this.picker.parseValues, this.binds._updateValues = this.picker.updateValues, this.binds._clear = this.picker.clear, this.binds._onClickCalendarDay = this.picker.onClickCalendarDay, this.binds._onClickApplyButton = this.picker.onClickApplyButton, Object.defineProperties(this.picker, { setStartDate: { configurable: true, value: this.binds.setStartDate }, setEndDate: { configurable: true, value: this.binds.setEndDate }, setDateRange: { configurable: true, value: this.binds.setDateRange }, getStartDate: { configurable: true, value: this.binds.getStartDate }, getEndDate: { configurable: true, value: this.binds.getEndDate }, parseValues: { configurable: true, value: this.binds.parseValues }, updateValues: { configurable: true, value: this.binds.updateValues }, clear: { configurable: true, value: this.binds.clear }, onClickCalendarDay: { configurable: true, value: this.binds.onClickCalendarDay }, onClickApplyButton: { configurable: true, value: this.binds.onClickApplyButton } }), this.options.elementEnd && (this.options.elementEnd instanceof HTMLElement || (this.options.elementEnd = this.picker.options.doc.querySelector(this.options.elementEnd)), this.options.elementEnd instanceof HTMLInputElement && (this.options.elementEnd.readOnly = this.picker.options.readonly), "function" == typeof this.picker.options.documentClick && (document.removeEventListener("click", this.picker.options.documentClick, true), "function" == typeof this.options.documentClick && document.addEventListener("click", this.options.documentClick, true)), this.options.elementEnd.addEventListener("click", this.picker.show.bind(this.picker))), this.options.repick = this.options.repick && this.options.elementEnd instanceof HTMLElement, this.picker.options.date = null, this.picker.on("view", this.binds.onView), this.picker.on("show", this.binds.onShow), this.picker.on("mouseenter", this.binds.onMouseEnter, true), this.picker.on("mouseleave", this.binds.onMouseLeave, true), this.checkIntlPluralLocales();
+  }
+  onDetach() {
+    Object.defineProperties(this.picker, { setStartDate: { configurable: true, value: this.binds._setStartDate }, setEndDate: { configurable: true, value: this.binds._setEndDate }, setDateRange: { configurable: true, value: this.binds._setDateRange }, getStartDate: { configurable: true, value: this.binds._getStartDate }, getEndDate: { configurable: true, value: this.binds._getEndDate }, parseValues: { configurable: true, value: this.binds._parseValues }, updateValues: { configurable: true, value: this.binds._updateValues }, clear: { configurable: true, value: this.binds._clear }, onClickCalendarDay: { configurable: true, value: this.binds._onClickCalendarDay }, onClickApplyButton: { configurable: true, value: this.binds._onClickApplyButton } }), this.picker.off("view", this.binds.onView), this.picker.off("show", this.binds.onShow), this.picker.off("mouseenter", this.binds.onMouseEnter, true), this.picker.off("mouseleave", this.binds.onMouseLeave, true);
+  }
+  parseValues() {
+    if (this.options.startDate || this.options.endDate)
+      this.options.strict ? this.options.startDate && this.options.endDate ? this.setDateRange(this.options.startDate, this.options.endDate) : (this.options.startDate = null, this.options.endDate = null) : (this.options.startDate && this.setStartDate(this.options.startDate), this.options.endDate && this.setEndDate(this.options.endDate));
+    else if (this.options.elementEnd)
+      this.options.strict ? this.picker.options.element instanceof HTMLInputElement && this.picker.options.element.value.length && this.options.elementEnd instanceof HTMLInputElement && this.options.elementEnd.value.length && this.setDateRange(this.picker.options.element.value, this.options.elementEnd.value) : (this.picker.options.element instanceof HTMLInputElement && this.picker.options.element.value.length && this.setStartDate(this.picker.options.element.value), this.options.elementEnd instanceof HTMLInputElement && this.options.elementEnd.value.length && this.setEndDate(this.options.elementEnd.value));
+    else if (this.picker.options.element instanceof HTMLInputElement && this.picker.options.element.value.length) {
+      const [t2, e2] = this.picker.options.element.value.split(this.options.delimiter);
+      this.options.strict ? t2 && e2 && this.setDateRange(t2, e2) : (t2 && this.setStartDate(t2), e2 && this.setEndDate(e2));
+    }
+  }
+  updateValues() {
+    const t2 = this.picker.options.element, e2 = this.options.elementEnd, i2 = this.picker.getStartDate(), n2 = this.picker.getEndDate(), s2 = i2 instanceof Date ? i2.format(this.picker.options.format, this.picker.options.lang) : "", o2 = n2 instanceof Date ? n2.format(this.picker.options.format, this.picker.options.lang) : "";
+    if (e2)
+      t2 instanceof HTMLInputElement ? t2.value = s2 : t2 instanceof HTMLElement && (t2.innerText = s2), e2 instanceof HTMLInputElement ? e2.value = o2 : e2 instanceof HTMLElement && (e2.innerText = o2);
+    else {
+      const e3 = `${s2}${s2 || o2 ? this.options.delimiter : ""}${o2}`;
+      t2 instanceof HTMLInputElement ? t2.value = e3 : t2 instanceof HTMLElement && (t2.innerText = e3);
+    }
+  }
+  clear() {
+    this.options.startDate = null, this.options.endDate = null, this.picker.datePicked.length = 0, this.updateValues(), this.picker.renderAll(), this.picker.trigger("clear");
+  }
+  onShow(t2) {
+    const { target: e2 } = t2.detail;
+    this.triggerElement = e2, this.picker.options.scrollToDate && this.getStartDate() instanceof Date && this.picker.gotoDate(this.getStartDate()), this.initializeRepick();
+  }
+  onView(e2) {
+    const { view: i2, target: n2 } = e2.detail;
+    if ("Main" === i2 && (this.tooltipElement = document.createElement("span"), this.tooltipElement.className = "range-plugin-tooltip", n2.appendChild(this.tooltipElement)), "CalendarDay" === i2) {
+      const e3 = new t(n2.dataset.time), i3 = this.picker.datePicked, s2 = i3.length ? this.picker.datePicked[0] : this.getStartDate(), o2 = i3.length ? this.picker.datePicked[1] : this.getEndDate();
+      s2 && s2.isSame(e3, "day") && n2.classList.add("start"), s2 && o2 && (o2.isSame(e3, "day") && n2.classList.add("end"), e3.isBetween(s2, o2) && n2.classList.add("in-range"));
+    }
+    if ("Footer" === i2) {
+      const t2 = 1 === this.picker.datePicked.length && !this.options.strict || 2 === this.picker.datePicked.length;
+      n2.querySelector(".apply-button").disabled = !t2;
+    }
+  }
+  hidePicker(t2) {
+    let e2 = t2.target, i2 = null;
+    e2.shadowRoot && (e2 = t2.composedPath()[0], i2 = e2.getRootNode().host), this.picker.isShown() && i2 !== this.picker.ui.wrapper && e2 !== this.picker.options.element && e2 !== this.options.elementEnd && this.picker.hide();
+  }
+  setStartDate(e2) {
+    const i2 = new t(e2, this.picker.options.format);
+    this.options.startDate = i2 ? i2.clone() : null, this.updateValues(), this.picker.renderAll();
+  }
+  setEndDate(e2) {
+    const i2 = new t(e2, this.picker.options.format);
+    this.options.endDate = i2 ? i2.clone() : null, this.updateValues(), this.picker.renderAll();
+  }
+  setDateRange(e2, i2) {
+    const n2 = new t(e2, this.picker.options.format), s2 = new t(i2, this.picker.options.format);
+    this.options.startDate = n2 ? n2.clone() : null, this.options.endDate = s2 ? s2.clone() : null, this.updateValues(), this.picker.renderAll();
+  }
+  getStartDate() {
+    return this.options.startDate instanceof Date ? this.options.startDate.clone() : null;
+  }
+  getEndDate() {
+    return this.options.endDate instanceof Date ? this.options.endDate.clone() : null;
+  }
+  onMouseEnter(e2) {
+    const i2 = e2.target;
+    if (i2 instanceof HTMLElement) {
+      this.isContainer(i2) && this.initializeRepick();
+      const e3 = i2.closest(".unit");
+      if (!(e3 instanceof HTMLElement))
+        return;
+      if (this.picker.isCalendarDay(e3)) {
+        if (1 !== this.picker.datePicked.length)
+          return;
+        let i3 = this.picker.datePicked[0].clone(), n2 = new t(e3.dataset.time), s2 = false;
+        if (i3.isAfter(n2, "day")) {
+          const t2 = i3.clone();
+          i3 = n2.clone(), n2 = t2.clone(), s2 = true;
+        }
+        if ([...this.picker.ui.container.querySelectorAll(".day")].forEach((o2) => {
+          const a = new t(o2.dataset.time), r = this.picker.Calendar.getCalendarDayView(a);
+          a.isBetween(i3, n2) && r.classList.add("in-range"), a.isSame(this.picker.datePicked[0], "day") && (r.classList.add("start"), r.classList.toggle("flipped", s2)), o2 === e3 && (r.classList.add("end"), r.classList.toggle("flipped", s2)), o2.className = r.className;
+        }), this.options.tooltip) {
+          const t2 = this.options.tooltipNumber(n2.diff(i3, "day") + 1);
+          if (t2 > 0) {
+            const i4 = new Intl.PluralRules(this.picker.options.lang).select(t2), n3 = `${t2} ${this.options.locale[i4]}`;
+            this.showTooltip(e3, n3);
+          } else
+            this.hideTooltip();
+        }
+      }
+    }
+  }
+  onMouseLeave(t2) {
+    if (this.isContainer(t2.target) && this.options.repick) {
+      const t3 = this.getStartDate(), e2 = this.getEndDate();
+      t3 && e2 && (this.picker.datePicked.length = 0, this.picker.renderAll());
+    }
+  }
+  onClickCalendarDay(e2) {
+    if (this.picker.isCalendarDay(e2)) {
+      2 === this.picker.datePicked.length && (this.picker.datePicked.length = 0);
+      const i2 = new t(e2.dataset.time);
+      if (this.picker.datePicked[this.picker.datePicked.length] = i2, 2 === this.picker.datePicked.length && this.picker.datePicked[0].isAfter(this.picker.datePicked[1])) {
+        const t2 = this.picker.datePicked[1].clone();
+        this.picker.datePicked[1] = this.picker.datePicked[0].clone(), this.picker.datePicked[0] = t2.clone();
+      }
+      1 !== this.picker.datePicked.length && this.picker.options.autoApply || this.picker.trigger("preselect", { start: this.picker.datePicked[0] instanceof Date ? this.picker.datePicked[0].clone() : null, end: this.picker.datePicked[1] instanceof Date ? this.picker.datePicked[1].clone() : null }), 1 === this.picker.datePicked.length && (!this.options.strict && this.picker.options.autoApply && (this.picker.options.element === this.triggerElement && this.setStartDate(this.picker.datePicked[0]), this.options.elementEnd === this.triggerElement && this.setEndDate(this.picker.datePicked[0]), this.picker.trigger("select", { start: this.picker.getStartDate(), end: this.picker.getEndDate() })), this.picker.renderAll()), 2 === this.picker.datePicked.length && (this.picker.options.autoApply ? (this.setDateRange(this.picker.datePicked[0], this.picker.datePicked[1]), this.picker.trigger("select", { start: this.picker.getStartDate(), end: this.picker.getEndDate() }), this.picker.hide()) : (this.hideTooltip(), this.picker.renderAll()));
+    }
+  }
+  onClickApplyButton(t2) {
+    this.picker.isApplyButton(t2) && (1 !== this.picker.datePicked.length || this.options.strict || (this.picker.options.element === this.triggerElement && (this.options.endDate = null, this.setStartDate(this.picker.datePicked[0])), this.options.elementEnd === this.triggerElement && (this.options.startDate = null, this.setEndDate(this.picker.datePicked[0]))), 2 === this.picker.datePicked.length && this.setDateRange(this.picker.datePicked[0], this.picker.datePicked[1]), this.picker.trigger("select", { start: this.picker.getStartDate(), end: this.picker.getEndDate() }), this.picker.hide());
+  }
+  showTooltip(t2, e2) {
+    this.tooltipElement.style.visibility = "visible", this.tooltipElement.innerHTML = e2;
+    const i2 = this.picker.ui.container.getBoundingClientRect(), n2 = this.tooltipElement.getBoundingClientRect(), s2 = t2.getBoundingClientRect();
+    let o2 = s2.top, a = s2.left;
+    o2 -= i2.top, a -= i2.left, o2 -= n2.height, a -= n2.width / 2, a += s2.width / 2, this.tooltipElement.style.top = `${o2}px`, this.tooltipElement.style.left = `${a}px`;
+  }
+  hideTooltip() {
+    this.tooltipElement.style.visibility = "hidden";
+  }
+  checkIntlPluralLocales() {
+    if (!this.options.tooltip)
+      return;
+    const t2 = [.../* @__PURE__ */ new Set([new Intl.PluralRules(this.picker.options.lang).select(0), new Intl.PluralRules(this.picker.options.lang).select(1), new Intl.PluralRules(this.picker.options.lang).select(2), new Intl.PluralRules(this.picker.options.lang).select(6), new Intl.PluralRules(this.picker.options.lang).select(18)])], e2 = Object.keys(this.options.locale);
+    t2.every((t3) => e2.includes(t3)) || console.warn(`${this.getName()}: provide locales (${t2.join(", ")}) for correct tooltip text.`);
+  }
+  initializeRepick() {
+    if (!this.options.repick)
+      return;
+    const t2 = this.getStartDate(), e2 = this.getEndDate();
+    e2 && this.triggerElement === this.picker.options.element && (this.picker.datePicked[0] = e2), t2 && this.triggerElement === this.options.elementEnd && (this.picker.datePicked[0] = t2);
+  }
+  isContainer(t2) {
+    return t2 === this.picker.ui.container;
+  }
+};
+var d = class extends o {
+  rangePlugin;
+  lockPlugin;
+  priority = 10;
+  binds = { onView: this.onView.bind(this), onColorScheme: this.onColorScheme.bind(this) };
+  options = { dropdown: { months: false, years: false, minYear: 1950, maxYear: null }, darkMode: true, locale: { resetButton: '<svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>' } };
+  matchMedia;
+  getName() {
+    return "AmpPlugin";
+  }
+  onAttach() {
+    this.options.darkMode && window && "matchMedia" in window && (this.matchMedia = window.matchMedia("(prefers-color-scheme: dark)"), this.matchMedia.matches && (this.picker.ui.container.dataset.theme = "dark"), this.matchMedia.addEventListener("change", this.binds.onColorScheme)), this.options.weekNumbers && this.picker.ui.container.classList.add("week-numbers"), this.picker.on("view", this.binds.onView);
+  }
+  onDetach() {
+    this.options.darkMode && window && "matchMedia" in window && this.matchMedia.removeEventListener("change", this.binds.onColorScheme), this.picker.ui.container.removeAttribute("data-theme"), this.picker.ui.container.classList.remove("week-numbers"), this.picker.off("view", this.binds.onView);
+  }
+  onView(t2) {
+    this.lockPlugin = this.picker.PluginManager.getInstance("LockPlugin"), this.rangePlugin = this.picker.PluginManager.getInstance("RangePlugin"), this.handleDropdown(t2), this.handleResetButton(t2), this.handleWeekNumbers(t2);
+  }
+  onColorScheme(t2) {
+    const e2 = t2.matches ? "dark" : "light";
+    this.picker.ui.container.dataset.theme = e2;
+  }
+  handleDropdown(e2) {
+    const { view: i2, target: n2, date: s2, index: o2 } = e2.detail;
+    if ("CalendarHeader" === i2) {
+      const e3 = n2.querySelector(".month-name");
+      if (this.options.dropdown.months) {
+        e3.childNodes[0].remove();
+        const i3 = document.createElement("select");
+        i3.className = "month-name--select month-name--dropdown";
+        for (let e4 = 0; e4 < 12; e4 += 1) {
+          const n3 = document.createElement("option"), o3 = new t(new Date(s2.getFullYear(), e4, 2, 0, 0, 0)), a = new t(new Date(s2.getFullYear(), e4, 1, 0, 0, 0));
+          n3.value = String(e4), n3.text = o3.toLocaleString(this.picker.options.lang, { month: "long" }), this.lockPlugin && (n3.disabled = this.lockPlugin.options.minDate && a.isBefore(new t(this.lockPlugin.options.minDate), "month") || this.lockPlugin.options.maxDate && a.isAfter(new t(this.lockPlugin.options.maxDate), "month")), n3.selected = a.getMonth() === s2.getMonth(), i3.appendChild(n3);
+        }
+        i3.addEventListener("change", (t2) => {
+          const e4 = t2.target;
+          this.picker.calendars[0].setDate(1), this.picker.calendars[0].setMonth(Number(e4.value)), this.picker.renderAll();
+        }), e3.prepend(i3);
+      }
+      if (this.options.dropdown.years) {
+        e3.childNodes[1].remove();
+        const i3 = document.createElement("select");
+        i3.className = "month-name--select";
+        const n3 = this.options.dropdown.minYear, o3 = this.options.dropdown.maxYear ? this.options.dropdown.maxYear : (/* @__PURE__ */ new Date()).getFullYear();
+        if (s2.getFullYear() > o3) {
+          const t2 = document.createElement("option");
+          t2.value = String(s2.getFullYear()), t2.text = String(s2.getFullYear()), t2.selected = true, t2.disabled = true, i3.appendChild(t2);
+        }
+        for (let e4 = o3; e4 >= n3; e4 -= 1) {
+          const n4 = document.createElement("option"), o4 = new t(new Date(e4, 0, 1, 0, 0, 0));
+          n4.value = String(e4), n4.text = String(e4), this.lockPlugin && (n4.disabled = this.lockPlugin.options.minDate && o4.isBefore(new t(this.lockPlugin.options.minDate), "year") || this.lockPlugin.options.maxDate && o4.isAfter(new t(this.lockPlugin.options.maxDate), "year")), n4.selected = s2.getFullYear() === e4, i3.appendChild(n4);
+        }
+        if (s2.getFullYear() < n3) {
+          const t2 = document.createElement("option");
+          t2.value = String(s2.getFullYear()), t2.text = String(s2.getFullYear()), t2.selected = true, t2.disabled = true, i3.appendChild(t2);
+        }
+        if ("asc" === this.options.dropdown.years) {
+          const t2 = Array.prototype.slice.call(i3.childNodes).reverse();
+          i3.innerHTML = "", t2.forEach((t3) => {
+            t3.innerHTML = t3.value, i3.appendChild(t3);
+          });
+        }
+        i3.addEventListener("change", (t2) => {
+          const e4 = t2.target;
+          this.picker.calendars[0].setFullYear(Number(e4.value)), this.picker.renderAll();
+        }), e3.appendChild(i3);
+      }
+    }
+  }
+  handleResetButton(t2) {
+    const { view: e2, target: i2 } = t2.detail;
+    if ("CalendarHeader" === e2 && this.options.resetButton) {
+      const t3 = document.createElement("button");
+      t3.className = "reset-button unit", t3.innerHTML = this.options.locale.resetButton, t3.addEventListener("click", (t4) => {
+        t4.preventDefault();
+        let e3 = true;
+        "function" == typeof this.options.resetButton && (e3 = this.options.resetButton.call(this)), e3 && this.picker.clear();
+      }), i2.appendChild(t3);
+    }
+  }
+  handleWeekNumbers(e2) {
+    if (this.options.weekNumbers) {
+      const { view: i2, target: n2 } = e2.detail;
+      if ("CalendarDayNames" === i2) {
+        const t2 = document.createElement("div");
+        t2.className = "wnum-header", t2.innerHTML = "Wk", n2.prepend(t2);
+      }
+      "CalendarDays" === i2 && [...n2.children].forEach((e3, i3) => {
+        if (0 === i3 || i3 % 7 == 0) {
+          let i4;
+          if (e3.classList.contains("day"))
+            i4 = new t(e3.dataset.time);
+          else {
+            const e4 = n2.querySelector(".day");
+            i4 = new t(e4.dataset.time);
+          }
+          let s2 = i4.getWeek(this.picker.options.firstDay);
+          53 === s2 && 0 === i4.getMonth() && (s2 = "53/1");
+          const o2 = document.createElement("div");
+          o2.className = "wnum-item", o2.innerHTML = String(s2), n2.insertBefore(o2, e3);
+        }
+      });
+    }
+  }
+};
 
 // Scripts/picker.ts
-async function createPicker(options) {
+async function createPicker(options, endDateDiv, dotNetRef) {
+  let isRangeEnabled = false;
+  if (options.plugins.length > 0) {
+    options.plugins = options.plugins.map((plugin) => {
+      switch (plugin) {
+        case "RangePlugin":
+          isRangeEnabled = true;
+          if (endDateDiv) {
+            options.RangePlugin.elementEnd = endDateDiv;
+          }
+          return c;
+        case "AmpPlugin":
+          if (options.AmpPlugin.dropdown.yearsAscending) {
+            options.AmpPlugin.dropdown.years = "asc";
+          }
+          return d;
+      }
+    });
+  }
   const picker = new s.create(options);
+  picker.on("select", async (e2) => {
+    if (isRangeEnabled) {
+      await dotNetRef.invokeMethodAsync("OnDateRangeSelected", e2.detail.start, e2.detail.end);
+    } else {
+      await dotNetRef.invokeMethodAsync("OnDateSelected", e2.detail.date);
+    }
+  });
   return picker;
 }
 export {
