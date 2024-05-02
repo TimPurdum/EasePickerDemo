@@ -99,10 +99,60 @@ public partial class EasyPicker
         {
             _jsModule ??= await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/picker.js");
 
-            PickerConfig config = new(_pickerDiv!.Value, [CSS]);
-            _easePick = await _jsModule.InvokeAsync<IJSObjectReference>("createPicker", config);
+            List<string> activePlugins = [];
+            if (AmpConfig is not null)
+            {
+                activePlugins.Add("AmpPlugin");
+            }
+
+            if (CollectDateRange)
+            {
+                // create a new RangePluginOptions object if it doesn't exist
+                RangeConfig ??= new RangePluginOptions();
+                activePlugins.Add("RangePlugin");
+            }
+            else
+            {
+                RangeConfig = null;
+            }
+
+            // build the configuration object
+            PickerConfig config = new(_pickerDiv!.Value, [CSS], (int)FirstDay, Language, Date,
+                Columns, Months, ReadOnly, AutoApply, ZIndex, Inline, ShowHeader)
+            {
+                Plugins = activePlugins.ToArray(),
+                AmpPlugin = AmpConfig,
+                RangePlugin = RangeConfig
+            };
+            _easePick = await _jsModule.InvokeAsync<IJSObjectReference>("createPicker", config,
+                _endDateDiv, DotNetObjectRef);
         }
     }
+
+
+    /// <summary>
+    ///     This event is raised when the user selects a single date.
+    /// </summary>
+    [JSInvokable]
+    public async Task OnDateSelected(DateTime selectedDate)
+    {
+        await DateSelected.InvokeAsync(selectedDate);
+    }
+
+    /// <summary>
+    ///     This method is called from the JS component when the user selects a date range.
+    /// </summary>
+    [JSInvokable]
+    public async Task OnDateRangeSelected(DateTime startDate, DateTime endDate)
+    {
+        await DateRangeSelected.InvokeAsync(new DateRange(startDate, endDate));
+    }
+
+    /// <summary>
+    ///     This is the DotNetObjectReference that will be passed to the JS component
+    /// </summary>
+    private DotNetObjectReference<EasyPicker> DotNetObjectRef => DotNetObjectReference.Create(this);
+
 
     #region Private Fields
     private ElementReference? _pickerDiv;
