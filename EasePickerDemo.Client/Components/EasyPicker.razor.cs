@@ -104,10 +104,10 @@ public partial class EasyPicker
         }
     }
 
-
+    #region Private Fields
     private ElementReference? _pickerDiv;
     private ElementReference? _endDateDiv;
     private IJSObjectReference? _jsModule;
     private IJSObjectReference? _easePick;
-
+    #endregion
 }
