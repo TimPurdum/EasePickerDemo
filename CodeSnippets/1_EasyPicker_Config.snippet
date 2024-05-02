@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>2_EasyPicker_Config</Title>
+            <Shortcut>ep1</Shortcut>
+        </Header>
+        <Snippet>
+            <Code Language="CSharp" Kind="any">
+                <![CDATA[
+                    List<string> activePlugins = [];
+                    if (AmpConfig is not null)
+                    {
+                        activePlugins.Add("AmpPlugin");
+                    }
+
+                    if (CollectDateRange)
+                    {
+                        // create a new RangePluginOptions object if it doesn't exist
+                        RangeConfig ??= new RangePluginOptions();
+                        activePlugins.Add("RangePlugin");
+                    }
+                    else
+                    {
+                        RangeConfig = null;
+                    }
+
+                    // build the configuration object
+                    PickerConfig config = new(_pickerDiv!.Value, [CSS], (int)FirstDay, Language, Date,
+                        Columns, Months, ReadOnly, AutoApply, ZIndex, Inline, ShowHeader)
+                    {
+                        Plugins = activePlugins.ToArray(),
+                        AmpPlugin = AmpConfig,
+                        RangePlugin = RangeConfig
+                    };
+                    _easePick = await _jsModule.InvokeAsync<IJSObjectReference>("createPicker", config,
+                        _endDateDiv);
+                ]]>
+            </Code>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>

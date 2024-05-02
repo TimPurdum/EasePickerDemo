@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>2_Shim_Config</Title>
+            <Shortcut>shim1</Shortcut>
+        </Header>
+        <Snippet>
+            <Code Language="TypeScript" Kind="any">
+                <![CDATA[
+                    import { easepick, RangePlugin, AmpPlugin } from '@easepick/bundle';
+                    import { IPickerConfig } from '@easepick/core/dist/types';
+
+                    export async function createPicker(options: IPickerConfig, endDateDiv: any | null) {
+                        let isRangeEnabled = false;
+                        if (options.plugins.length > 0) {
+                            // replace string representation of plugin with actual plugin
+                            options.plugins = options.plugins.map((plugin) => {
+                                switch (plugin) {
+                                    case 'RangePlugin':
+                                        isRangeEnabled = true;
+                                        if (endDateDiv) {
+                                            options.RangePlugin.elementEnd = endDateDiv;
+                                        }
+                                        return RangePlugin;
+                                    case 'AmpPlugin':
+                                        if ((options.AmpPlugin.dropdown as any).yearsAscending) {
+                                            options.AmpPlugin.dropdown.years = 'asc';
+                                        }
+                                        return AmpPlugin;
+                                }
+                            });
+                        }
+                        const picker = new easepick.create(options);
+                        return picker;
+                    }
+                ]]>
+            </Code>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>

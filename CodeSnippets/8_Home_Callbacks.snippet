@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>8_Home_Callbacks</Title>
+            <Shortcut>hm2</Shortcut>
+        </Header>
+        <Snippet>
+            <Code Language="CSharp" Kind="any">
+                <![CDATA[
+                    private void OnDateSelected(DateTime date)
+                    {
+                        _message = $"Date {date.ToShortDateString()} selected.";
+                    }
+
+                    private void OnDateRangeSelected(DateRange dateRange)
+                    {
+                        _message = $"Date Range {dateRange.StartDate.ToShortDateString()}-{dateRange.EndDate.ToShortDateString()} selected.";
+                    }
+                ]]>
+            </Code> 
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>

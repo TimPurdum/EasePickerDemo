@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>6_EasyPicker_Callbacks</Title>
+            <Shortcut>ep2</Shortcut>
+        </Header>
+        <Snippet>
+            <Code Language="CSharp" Kind="any">
+                <![CDATA[
+                    /// <summary>
+                    ///     This event is raised when the user selects a single date.
+                    /// </summary>
+                    [JSInvokable]
+                    public async Task OnDateSelected(DateTime selectedDate)
+                    {
+                        await DateSelected.InvokeAsync(selectedDate);
+                    }
+                    
+                    /// <summary>
+                    ///     This method is called from the JS component when the user selects a date range.
+                    /// </summary>
+                    [JSInvokable]
+                    public async Task OnDateRangeSelected(DateTime startDate, DateTime endDate)
+                    {
+                        await DateRangeSelected.InvokeAsync(new DateRange(startDate, endDate));
+                    }
+
+                    /// <summary>
+                    ///     This is the DotNetObjectReference that will be passed to the JS component
+                    /// </summary>
+                    private DotNetObjectReference<EasyPicker> DotNetObjectRef => DotNetObjectReference.Create(this);
+                ]]>
+            </Code>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>
